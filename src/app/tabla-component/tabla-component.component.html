@@ -1,0 +1,78 @@
+<div class="card mr-auto ml-auto mt-5" style="width:90%">
+    <div class="card-header">
+    <span>Listado de libros</span>
+    <button type="button" class="btn btn-primary float-right" (click)="open(content)">Nuevo</button>
+    </div>
+    <div class="card-body">
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" style="width: 90%;">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>NOMBRE</th>
+        <th>DESCRIPCIÓN</th>
+        <th>AUTOR</th>
+        <th>FECHA PUBLICACIÓN</th>
+        <th># EJEMPLARES</th>
+        <th>COSTO</th>
+        <th>ACCIONES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let libro of libros">
+        <td>{{ libro.id }}</td>
+        <td>{{ libro.nombre }}</td>
+        <td>{{ libro.descripcion }}</td>
+        <td>{{ libro.autor }}</td>
+        <td>{{ libro.fecha_publicacion }}</td>
+        <td>{{ libro.n_ejemplares }}</td>
+        <td>{{ libro.costo }}</td>
+        <td>
+            <a type="button" class="btn btn-warning" (click)="open(content,libro)" [routerLink]="['/libros',libro.id]">Editar</a>
+            <a type="button" class="btn btn-danger ml-2" (click)="eliminarLibro(libro.id)">Eliminar</a>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+            </div>
+            <div style="width: 90%; margin:auto">
+                <form #f="ngForm" (ngSubmit)="f.form.valid && guardarLibro()">
+                    <div class="form-group">
+                      <label for="Nombre">Nombre</label>
+                      <input type="text" class="form-control" required [(ngModel)]="nombre" name="nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="Descripción">Descripción</label>
+                        <input type="text" class="form-control" required [(ngModel)]="descripcion" name="descripcion">
+                      </div>
+                      <div class="form-group">
+                        <label for="Autor">Autor</label>
+                        <input type="text" class="form-control" required [(ngModel)]="autor" name="autor">
+                      </div>
+                      <div class="form-group">
+                          <label for="">Fecha publicación</label>
+                          <input class="form-control" type="date" id="example-date-input" [(ngModel)]="fecha_publicacion" name="fecha_publicacion">
+                        </div>
+                      <div class="form-group">
+                        <label for="ejemplares"># Ejemplares</label>
+                        <input type="number" class="form-control" required [(ngModel)]="n_ejemplares" name="n_ejemplares">
+                      </div>
+                      <div class="form-group">
+                        <label for="Costo">Costo</label>
+                        <input type="number" class="form-control" required [(ngModel)]="costo" name="costo">
+                      </div>
+                    <button type="submit" class="btn btn-primary mb-2">Guardar</button>
+                  </form>
+            </div>
+  </ng-template>
+<hr>
+  <hr>
+  
